@@ -1,6 +1,6 @@
 // 1) Paste your Supabase URL + anon key here (Project Settings -> API)
-const SUPABASE_URL = "PASTE_YOUR_PROJECT_URL";
-const SUPABASE_ANON_KEY = "PASTE_YOUR_ANON_PUBLIC_KEY";
+const SUPABASE_URL = "https://ltmakxvmyjbftvtevsrz.supabase.co";
+const SUPABASE_ANON_KEY = "sb_publishable_SuvRIAdYcx9rf49qFwzK_Q_OCsEOZqt";
 
 // Supabase CDN exposes a global "supabase" object
 const client = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
