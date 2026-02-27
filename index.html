@@ -1,10 +1,54 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
 <head>
-  <title>My Website</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Pack Opener (Supabase Save)</title>
+  <style>
+    body { font-family: system-ui, Arial; margin: 24px; }
+    .row { display:flex; gap:10px; flex-wrap:wrap; }
+    input, button { padding:10px; font-size:16px; }
+    #app { margin-top: 18px; }
+    .card { border:1px solid #ddd; border-radius:12px; padding:14px; max-width:520px; }
+    .inv { white-space: pre-wrap; background:#f7f7f7; padding:10px; border-radius:10px; }
+  </style>
+
+  <!-- Supabase via CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <!-- Supabase shows CDN install like this -->
 </head>
-<body style="text-align:center; font-family:Arial; margin-top:100px;">
-  <h1>🚀 My Website is LIVE</h1>
-  <p>I made this using GitHub Pages.</p>
+<body>
+  <h1>📦 Pack Opening Sim</h1>
+
+  <div id="auth" class="card">
+    <h2>Login / Sign up</h2>
+    <div class="row">
+      <input id="email" type="email" placeholder="email" autocomplete="email" />
+      <input id="password" type="password" placeholder="password" autocomplete="current-password" />
+    </div>
+    <div class="row" style="margin-top:10px;">
+      <button id="btnSignup">Sign up</button>
+      <button id="btnLogin">Log in</button>
+      <button id="btnLogout" style="display:none;">Log out</button>
+    </div>
+    <p id="authMsg"></p>
+  </div>
+
+  <div id="app" class="card" style="display:none;">
+    <h2>Game</h2>
+    <p><b>Coins:</b> <span id="coins">0</span></p>
+    <div class="row">
+      <button id="btnGiveCoins">+100 coins (test)</button>
+      <button id="btnOpenPack">Open Pack (cost 25)</button>
+      <button id="btnSave">Save now</button>
+    </div>
+
+    <h3>Inventory</h3>
+    <div class="inv" id="inv"></div>
+
+    <p id="gameMsg"></p>
+  </div>
+
+  <script src="./app.js"></script>
 </body>
 </html>
