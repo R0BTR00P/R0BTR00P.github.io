@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Pack Opener (Supabase Save)</title>
+  <title>Pack Opener</title>
   <style>
     body { font-family: system-ui, Arial; margin: 24px; }
     .row { display:flex; gap:10px; flex-wrap:wrap; }
@@ -11,16 +11,17 @@
     #app { margin-top: 18px; }
     .card { border:1px solid #ddd; border-radius:12px; padding:14px; max-width:520px; }
     .inv { white-space: pre-wrap; background:#f7f7f7; padding:10px; border-radius:10px; }
+    small { color:#666; }
   </style>
 
-  <!-- Supabase via CDN -->
+  <!-- Supabase JS (CDN) -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <!-- Supabase shows CDN install like this -->
 </head>
 <body>
   <h1>📦 Pack Opening Sim</h1>
+  <small>Accounts + cloud save via Supabase</small>
 
-  <div id="auth" class="card">
+  <div id="auth" class="card" style="margin-top:14px;">
     <h2>Login / Sign up</h2>
     <div class="row">
       <input id="email" type="email" placeholder="email" autocomplete="email" />
@@ -34,9 +35,10 @@
     <p id="authMsg"></p>
   </div>
 
-  <div id="app" class="card" style="display:none;">
+  <div id="app" class="card" style="display:none; margin-top:14px;">
     <h2>Game</h2>
     <p><b>Coins:</b> <span id="coins">0</span></p>
+
     <div class="row">
       <button id="btnGiveCoins">+100 coins (test)</button>
       <button id="btnOpenPack">Open Pack (cost 25)</button>
@@ -44,11 +46,12 @@
     </div>
 
     <h3>Inventory</h3>
-    <div class="inv" id="inv"></div>
+    <div class="inv" id="inv">(empty)</div>
 
     <p id="gameMsg"></p>
   </div>
 
- <script src="./app.js"></script>
+  <!-- IMPORTANT: app.js is in the same folder as index.html -->
+  <script src="./app.js"></script>
 </body>
 </html>
