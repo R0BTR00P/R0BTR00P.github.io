@@ -1,4 +1,4 @@
-// 1) Paste your Supabase URL + anon key here (Project Settings -> API)
+// Supabase config (your real values)
 const SUPABASE_URL = "https://ltmakxvmyjbftvtevsrz.supabase.co";
 const SUPABASE_ANON_KEY = "sb_publishable_SuvRIAdYcx9rf49qFwzK_Q_OCsEOZqt";
 
@@ -30,7 +30,6 @@ function showApp(isAuthed) {
 
 // --- Save / Load ---
 async function ensureProfileRow(userId) {
-  // Upsert a default row if missing
   const { error } = await client
     .from("profiles")
     .upsert({ id: userId, coins: 0, inventory: [] }, { onConflict: "id" });
@@ -84,10 +83,18 @@ $("btnSignup").onclick = async () => {
     const email = $("email").value.trim();
     const password = $("password").value;
 
-    const { error } = await client.auth.signUp({ email, password }); // :contentReference[oaicite:2]{index=2}
+    const { error } = await client.auth.signUp({
+      email,
+      password,
+      options: {
+        // prevents localhost redirects in many cases
+        emailRedirectTo: window.location.origin
+      }
+    });
+
     if (error) throw error;
 
-    authMsg("Signed up! If email confirmation is ON, check your inbox.");
+    authMsg("Signed up! Now click Log in. (If email confirm is ON, check email.)");
   } catch (e) {
     authMsg(e.message || String(e));
   }
@@ -99,7 +106,7 @@ $("btnLogin").onclick = async () => {
     const email = $("email").value.trim();
     const password = $("password").value;
 
-    const { error } = await client.auth.signInWithPassword({ email, password }); // :contentReference[oaicite:3]{index=3}
+    const { error } = await client.auth.signInWithPassword({ email, password });
     if (error) throw error;
 
     authMsg("Logged in ✅");
@@ -136,7 +143,6 @@ $("btnGiveCoins").onclick = () => {
 };
 
 function rollItem() {
-  // Weighted example
   const r = Math.random();
   if (r < 0.70) return "Common";
   if (r < 0.93) return "Rare";
@@ -147,6 +153,7 @@ function rollItem() {
 $("btnOpenPack").onclick = async () => {
   gameMsg("");
   const cost = 25;
+
   if (state.coins < cost) {
     gameMsg("Not enough coins.");
     return;
@@ -158,7 +165,7 @@ $("btnOpenPack").onclick = async () => {
   render();
   gameMsg(`You got: ${item} 🎉`);
 
-  // Auto-save after opening (recommended)
+  // Auto-save after opening
   try {
     await saveGame();
   } catch (e) {
